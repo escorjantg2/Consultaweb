@@ -1,9 +1,11 @@
-<?php session_start();?>
+<?php session_start();
+
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html> 
     <head> 
         <title>Consulta de Asistencias </title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         
 <link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico"> 
 
@@ -67,7 +69,7 @@ var asInitVals = new Array();
 
 "sInfoFiltered": " - filtrados de _MAX_ registros", 
 
-"sInfoEmpty": "No hay resultados de b�squeda", 
+"sInfoEmpty": "No hay resultados de búsqueda", 
 
 "sZeroRecords": "No hay registros a mostrar", 
 
@@ -298,7 +300,7 @@ else
 <body id="dt_example"> 
     <table width="100%" height="100%" border="0">
   <tr>
-    <td height="98" align="center"><img src="img/consultaa.jpg" width="510" height="152" align="middle" /></td>
+    <td height="98" align="center"><img src="img/moda.jpg" width="510" height="152" align="middle" /></td>
   </tr>
   <tr>
     <td valign="top" align="center">
@@ -439,7 +441,9 @@ where c.idciclo='".$_REQUEST["ciclo"]."' order by a.nombre";
 		$mysql=mysql_query($alumnos,$conexion);
        $total = mysql_num_rows($mysql); 
 	   $i=0;
+	     
 	   while ($row = mysql_fetch_array($mysql)) {
+	   		
 	   if($row['observacionesex']==NULL){
 	           
                echo "<tr class='gradeC'> 
@@ -448,7 +452,7 @@ where c.idciclo='".$_REQUEST["ciclo"]."' order by a.nombre";
             <td width='auto'>".$row['apellido2']."</td> 
             <td width='auto'>".$row['nombreciclo']."</td> 
             <td width='auto'>".$row['nombreasignatura']."</td>  
-            <td width='auto'>".$_REQUEST['fecha']."</td>";
+            <td width='auto'>".$row['fecha']."</td>";
 			 $falta="falta".$i;
 			 //echo $falta;
 			 $retraso="retraso".$i;
@@ -523,7 +527,9 @@ where c.idciclo='".$_REQUEST["ciclo"]."' order by a.nombre";
 		$i=0;
 		$mysql=mysql_query($alumnos,$conexion);
        $total = mysql_num_rows($mysql); 
-	          while ($row = mysql_fetch_array($mysql)) {
+       //$fila = mysql_fetch_array($mysql);
+	   //$idalumno=$fila['idalumnos'];
+	   while ($row = mysql_fetch_array($mysql)) {
 	   $idalumno[$i]=$row['idalumnos'];
 	   //echo $idalumno[$i];
 	   //echo $i;
@@ -562,11 +568,18 @@ where c.idciclo='".$_REQUEST["ciclo"]."' order by a.nombre";
     <div class="spacer"></div> 
         </div> 
 <?php 
+		if($total==0){
+	   	echo ("<script>alert('No existen asistencias para modificar segun los criterios seleccionados') </script>");
+		echo ("<script>goBack();</script>)");
+		exit;
+	   		
+	   	}
+		else {
 	  $_SESSION['alumnoju'] = $idalumno;
 	  $_SESSION['asignaturaju'] = $idasignatura;
 	  $_SESSION['fechaju'] = $fecha;
 	  $_SESSION['idasisju']=$idasis;
-	  ?>	  
+	  } ?>	  
 </body> 
     <?php } ?>
 </html>

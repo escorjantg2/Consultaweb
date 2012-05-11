@@ -3,7 +3,7 @@
 <html> 
     <head> 
         <title>Consulta de Asistencias </title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         
 <link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico"> 
 
@@ -67,7 +67,7 @@ var asInitVals = new Array();
 
 "sInfoFiltered": " - filtrados de _MAX_ registros", 
 
-"sInfoEmpty": "No hay resultados de b�squeda", 
+"sInfoEmpty": "No hay resultados de búsqueda", 
 
 "sZeroRecords": "No hay registros a mostrar", 
 
@@ -235,7 +235,12 @@ top:0;
 	top: 161px;
 	left: 467px;
 }
-</style> 
+</style>
+<script>
+function goBack(){
+window.history.back();
+}
+</script> 
     </head>  
 <?php 
 // Arriba está el código de lo que va en el archivo include a continuación: 
@@ -296,11 +301,18 @@ $q++;
 }
 }
 //$q++;
+if($contador[$j][0]==1)
+{
+$error=1;
+}
+else {
+$error=0;
+}
 $j++;
 }
-if($contador>0)
+if($error==1)
 {
-echo ("<script>alert('Algunas de las asistencias que se han intentado insertar ya existian en la base de datos, a continuaci�n se mostraran las insertadas') </script>");
+echo ("<script>alert('Algunas de las asistencias que se han intentado insertar ya existian en la base de datos, a continuaci�n se mostraran las insertadas') </script>");
 }
 /*$insertando = "INSERT INTO asistencia (Alumnos_idalumnos,asignatura_idasignatura,fecha,tarde,falta) values (""); ";
 		$mysql=mysql_query($insertando,$conexion);
@@ -391,6 +403,14 @@ $grid="select a.nombre as nombrealumno, a.apellido1, a.apellido2, asig.nombre as
 from alumnos a inner join ciclo c on a.ciclo_idciclo=c.idciclo inner join asistencia asis on a.idalumnos=asis.Alumnos_idalumnos inner join asignatura asig on asis.asignatura_idasignatura=asig.idasignatura
 order by asis.idasistencia desc limit ".$q."";
 $mysql=mysql_query($grid,$conexion);
+$total = mysql_num_rows($mysql);
+echo "<br>";
+if($total==0){
+	   	echo ("<script>alert('No se está intentando insertar ninguna asistencia') </script>");
+		echo ("<script>goBack();</script>");
+		exit;
+	   		
+	   	}
 echo "<br>";
 	   $i=1;
        while ($row = mysql_fetch_array($mysql)) { 
@@ -435,3 +455,4 @@ echo "<br>";
         </div> 
 </body>
 </html>
+

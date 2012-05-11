@@ -3,7 +3,7 @@
 <html> 
     <head> 
         <title>Consulta de Asistencias </title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         
 <link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico"> 
 
@@ -139,9 +139,164 @@ body {
 	background-repeat: repeat;
 }
 </style> 
+<script language="JavaScript" type="text/javascript">
+function ventana(){
+var ventana = window.open("observaciones.php","Observacion","Width=771,Height=571,scrollbars=yes");
+}
+</script>
+<style> 
+.data_table { 
+font-family: helvetica; 
+font-size: 1px; 
+} 
+#top_of_page { 
+position: absolute; 
+} 
+#main_table_area {
+	position:absolute;
+	top: 212px;
+	height: 700px;
+	width: 90%;
+	overflow: auto;
+	/*left: 5px; */
+	margin-left:5%;
+	margin-right:5%;
+} 
+.Estilo1 {font-family: Arial, Helvetica, sans-serif}
+body {
+	background-image: url(img/background.gif);
+	background-repeat: repeat;
+}
+#apDiv1 {
+	position:absolute;
+	width:80px;
+	height:48px;
+	z-index:1;
+	left: 590px;
+	top: 28px;
+}
+<!--aqui empieza css del menu-->
+body, ul, li {
+margin:0;
+padding:0;
+margin-left:auto;
+margin-right:auto;
+}
+ul {
+list-style:none;
+display:inline-block;
 
+
+}
+ul li {
+float:left;
+
+
+
+}
+ul#dropdownmenu {
+margin:none;
+list-style:none;
+height:40px;
+width:100%;
+background: url(img/cabeceragif.gif) no-repeat;
+vertical-align: middle;
+
+}
+ul#dropdownmenu li {
+height:40px;
+}
+ul#dropdownmenu li a {
+display:block;
+padding:8px;
+height:24px;
+color:#FFF;
+font-family:Arial, Verdana, Geneva, sans-serif;
+font-size:16px;
+text-decoration:none;
+}
+ul#dropdownmenu li a:hover {
+background:#3366CC;
+}
+ul#dropdownmenu li ul {
+display:none;
+}
+ul#dropdownmenu li:hover ul {
+display:block;
+background:#999;
+position:absolute;
+}
+ul#dropdownmenu li:hover ul li {
+float:none;
+position:relative;
+background: url(img/cabeceragif.gif) no-repeat;
+}
+ul#dropdownmenu li ul li ul, ul#dropdownmenu li:hover ul li ul {
+display:none;
+}
+ul#dropdownmenu li:hover ul li:hover ul {
+display:block;
+top:0;
+
+}
+#apDiv3 {
+	position:relative;
+	width:91%;
+	height:79px;
+	z-index:99;
+	margin-left:5%;
+	margin-right:5%;
+	
+}
+#apDiv4 {
+	position:absolute;
+	width:236px;
+	height:115px;
+	z-index:100;
+	left: 51px;
+	top: 382px;
+}
+#apDiv1 {
+	position:absolute;
+	width:156px;
+	height:67px;
+	z-index:1;
+	top: 28px;
+	left: 639px;
+}
+#apDiv2 {
+	position:absolute;
+	width:484px;
+	height:52px;
+	z-index:1;
+	top: 166px;
+	left: 466px;
+}
+#apDiv5 {
+	position:absolute;
+	width:484px;
+	height:52px;
+	z-index:1;
+	top: 167px;
+	left: 468px;
+}
+#apDiv6 {
+	position:absolute;
+	width:484px;
+	height:52px;
+	z-index:2;
+	top: 165px;
+	left: 466px;
+}
+</style> 
+
+<script>
+function goBack(){
+window.history.back();
+}
+</script>
     </head> 
-    <body>
+
 <?php 
 // Arriba estĂĄ el cĂłdigo de lo que va en el archivo include a continuaciĂłn: 
 
@@ -189,7 +344,7 @@ if($_POST['falta'][$j]=="on" && $_POST['Justificado'][$j]=="on")
 {
 $updatef = "UPDATE asistencia SET Alumnos_idalumnos=".$_SESSION['alumnoju'][$p].",asignatura_idasignatura=".$_SESSION['asignaturaju'][$p].",fecha='".$_SESSION['fechaju'][$p]."',falta='Si',Justificado='Si', tarde='No' where idasistencia='".$_SESSION['idasisju'][$p]."'";
 $ejecupf = mysql_query($updatef,$conexion);
-echo $updatef; echo "<br>";
+
 }
 else
 {
@@ -197,14 +352,14 @@ if($_POST['falta'][$p]=="on")
 {
 $updatef2 = "UPDATE asistencia SET Alumnos_idalumnos=".$_SESSION['alumnoju'][$p].",asignatura_idasignatura=".$_SESSION['asignaturaju'][$p].",fecha='".$_SESSION['fechaju'][$p]."',falta='Si',Justificado='No', tarde='No' where idasistencia='".$_SESSION['idasisju'][$j]."'";
 $ejecupf2 = mysql_query($updatef2,$conexion);
-echo $updatef2; echo "<br>";
+
 }
 }
 if($_POST['retraso'][$p]=="on" && $_POST['Justificado'][$p]=="on")
 {
 $updater = "UPDATE asistencia SET Alumnos_idalumnos=".$_SESSION['alumnoju'][$p].",asignatura_idasignatura=".$_SESSION['asignaturaju'][$p].",fecha='".$_SESSION['fechaju'][$p]."',falta='No',Justificado='Si', tarde='Si' where idasistencia='".$_SESSION['idasisju'][$j]."'";
 $ejecupr = mysql_query($updater,$conexion);
-echo $updater; echo "<br>";
+
 }
 else
 {
@@ -212,18 +367,175 @@ if($_POST['retraso'][$p]=="on")
 {
 $updater2 = "UPDATE asistencia SET Alumnos_idalumnos=".$_SESSION['alumnoju'][$p].",asignatura_idasignatura=".$_SESSION['asignaturaju'][$p].",fecha='".$_SESSION['fechaju'][$p]."',falta='No',Justificado='No', tarde='Si' where idasistencia='".$_SESSION['idasisju'][$j]."'";
 $ejecupr2 = mysql_query($updater2,$conexion);
-echo $updater2; echo "<br>";
+
 }
 }
 if($_POST['falta'][$p]=="off" && $_POST['retraso'][$p]=="off" && $_POST['Justificado'][$p]=="off")
 {
 $updated = "UPDATE asistencia SET Alumnos_idalumnos=".$_SESSION['alumnoju'][$p].",asignatura_idasignatura=".$_SESSION['asignaturaju'][$p].",fecha='".$_SESSION['fechaju'][$p]."',falta='No',Justificado='No', tarde='No' where idasistencia='".$_SESSION['idasisju'][$j]."'";
 $ejecupd = mysql_query($updated,$conexion);
-echo $updated; echo "<br>";
+
 }
 $p++;
 $j++;
 }
+?>
+<body id="dt_example"> 
+    <table width="100%" height="100%" border="0">
+  <tr>
+    <td height="98" align="center"><img src="img/moda.jpg" width="510" height="152" align="middle" /></td>
+  </tr>
+  <tr>
+    <td valign="top" align="center">
+    <table width="101%" height="52" border="0" background="img/cabeceragif.gif">
+      <tr>
+        <td>
+          <!--<table width="70%" border="0" align="center">
+            <tr>
+             <td width="91"  align="left"><a href="index.html" class="subrayado">Portada</a>&nbsp;&nbsp;</td>
+              <td width="144"  align="left"><a href="consultaa.php" class="subrayado">Consulta de asistencia</a></td>
+              <td width="128"  align="left"><a href="moda.php" class="subrayado">Insertar asistencia</a></td>
+              <td width="112"  align="left"><a href="modia.php" class="subrayado">Modificar asistencia</a></td>
+              <td width="119"  align="left"><a href="consultan.php" class="subrayado">Consulta de notas</a></td>
+              <td width="112"  align="left"><a href="modn.php" class="subrayado">Insertar notas</a></td>
+              <td width="112"  align="left"><a href="modin.php" class="subrayado">Modificar notas</a></td>
+             
+            </tr>
+          </table>-->
+          <div id="apDiv6">
+          <ul id="dropdownmenu">
+<li><a href="index.html">Portada</a></li>
+<li>
+<a href="#">Asistencias</a>
+<ul>
+<li><a href="moda.php">Insertar asistencias</a></li>
+<li><a href="consultaa.php">Consultar asistencias</a></li>
+<li><a href="modia.php">Modificar asistencias</a></li>
+</ul>
+</li>
+<li>
+  <div align="left"><a href="#">Notas</a>
+    <ul>
+      <li><a href="modn.php">Insertar notas</a></li>
+      <li><a href="consultan.php">Consultar notas</a></li>
+      <li><a href="modin.php">Modificar notas</a></li>
+    </ul>
+  </div>
+</li>
+</ul></div></td>
+        </tr>
+      </table>
+    </td>
+      </tr>
+    </table>
+    
+       <form name="modificarasistencias" method="post" action="modificadoa.php">
+   <div id="demo"><font size=1><center>
+     <div id="main_table_area">    <br>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" class="data_table"> 
+<thead> 
+        <tr> 
+            <th width="auto">Nombre</th> 
+            <th width="auto">Apellido 1</th> 
+            <th width="auto">Apellido 2</th> 
+            <th width="auto">Ciclo</th>
+    		<th width="auto">Asignatura</th>
+            <th width="auto">Fecha</th>   
+            <th width="auto">Faltas</th>
+            <th width="auto">Retrasos</th>  
+            <th width="auto">Justificado</th>
+            <!--<th width="auto">Observaciones</th>-->
+   <!-- esto son la cantidad de columnas que tendra el grid         <th width="auto">Titulo 7</th> -->
+        </tr> 
+    </thead> 
+    <tbody> 
+<?php 
+       $i=0;
+	   while ($i<count($_SESSION['idasisju'])){
+	   	$alumnos="select a.nombre as nombrealumno, a.apellido1, a.apellido2, asig.nombre as nombreasignatura,c.nombre as nombreciclo,asis.falta, asis.tarde, Justificado, asis.fecha as fecha, asis.observaciones as observacionesex,a.idalumnos,c.idciclo,asig.idasignatura, asis.idasistencia as idasis
+from alumnos a left join ciclo c on a.ciclo_idciclo=c.idciclo left join asistencia asis on a.idalumnos=asis.Alumnos_idalumnos left join asignatura asig on asis.asignatura_idasignatura=asig.idasignatura where idasistencia='".$_SESSION['idasisju'][$i]."'";
+$mysql=mysql_query($alumnos,$conexion);	
+	$row = mysql_fetch_array($mysql);
+	   if($row['observacionesex']==NULL){
+	           
+               echo "<tr class='gradeC'> 
+            <td width='auto'>".$row['nombrealumno']."</td> 
+            <td width='auto' class='center'>".$row['apellido1']."</td> 
+            <td width='auto'>".$row['apellido2']."</td> 
+            <td width='auto'>".$row['nombreciclo']."</td> 
+            <td width='auto'>".$row['nombreasignatura']."</td>  
+            <td width='auto'>".$row['fecha']."</td>";
+			 $falta="falta".$i;
+			 //echo $falta;
+			 $retraso="retraso".$i;
+			 $observaciones="observacionesex".$i;
+			 if($row['falta'] =='Si')
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox' checked name='falta[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox'  name='falta[$i]'/></td>";
+			 }
+			 if ($row['tarde'] =='Si')
+			 {
+			  echo "<td align='center' width='auto'><input type='checkbox' checked name='retraso[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox'  name='retraso[$i]'/></td>";
+			 } 
+			 if ($row['Justificado'] =='Si')
+			 {
+			  echo "<td align='center' width='auto'><input type='checkbox' checked name='Justificado[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox'  name='Justificado[$i]'/></td>";
+			 }
+			//echo" <td width='auto'></td>
+            echo "</tr>"; 
+       } 
+	   else{ 
+               echo "<tr class='gradeC'> 
+            <td width='auto'>".$row['nombrealumno']."</td> 
+            <td width='auto' class='center'>".$row['apellido1']."</td> 
+            <td width='auto'>".$row['apellido2']."</td> 
+            <td width='auto'>".$row['nombreciclo']."</td> 
+            <td width='auto'>".$row['nombreasignatura']."</td> 
+			<td width='auto'>".$_REQUEST['fecha']."</td>";
+			 $falta="falta".$i;
+			 //echo $falta;
+			 $retraso="retraso".$i;
+			 $observaciones="observacionesex".$i;
+            if($row['falta'] =='Si')
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox' checked name='falta[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox' name='falta[$i]'/></td>";
+			 }
+			 if ($row['tarde'] =='Si')
+			 {
+			  echo "<td align='center' width='auto'><input type='checkbox' checked name='retraso[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox' name='retraso[$i]'/></td>";
+			 } 
+			 if ($row['Justificado'] =='Si')
+			 {
+			  echo "<td align='center' width='auto'><input type='checkbox' checked name='Justificado[$i]'/></td>";
+			 }
+			 else
+			 {
+			 echo "<td align='center' width='auto'><input type='checkbox' name='Justificado[$i]'/></td>";
+			 }/*<td width='auto'><form name='observacion' action='observaciones.php'method='post' target='_blank' align='center'><input type='hidden' name='observacion' value='".$row['observacionesex']."'/><input type='submit' name='enviarob' value='Ver'/></form>*/ echo "
+            </tr>"; 
+       }	
+       $i++;
+	   }
 ?>
  </body>
 </html>

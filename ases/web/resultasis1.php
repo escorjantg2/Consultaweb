@@ -15,7 +15,7 @@
             @import "DataTables-1.9.1/extras/ColVis/media/css/ColVis.css"; 
 			
         </style> 
-		<link href="inventario.css" rel="stylesheet" type="text/css" />
+		<link href="ases.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" charset="utf-8" src="DataTables-1.9.1/media/js/jquery.js"></script> 
         <script type="text/javascript" charset="utf-8" src="DataTables-1.9.1/media/js/jquery.dataTables.js"></script> 
         <script type="text/javascript" charset="utf-8" src="DataTables-1.9.1/TableTools-2.0.3/media/js/ZeroClipboard.js"></script> 

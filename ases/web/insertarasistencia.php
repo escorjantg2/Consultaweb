@@ -12,7 +12,7 @@ else
 <html> 
     <head> 
         <title>Consulta de Asistencias </title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         
 <link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico"> 
 

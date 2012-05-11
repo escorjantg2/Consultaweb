@@ -3,7 +3,7 @@
 <html> 
     <head> 
         <title>Consulta de Asistencias </title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         
 <link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico"> 
 
@@ -292,7 +292,7 @@ $j++;
 <body id="dt_example">
 <table width="100%" height="100%" border="0">
   <tr>
-    <td height="98" align="center"><img src="img/insertadoa.jpg" width="510" height="152" align="middle" /></td>
+    <td height="98" align="center"><img src="img/insertadon.jpg" width="510" height="152" align="middle" /></td>
   </tr>
   <tr>
     <td valign="top" align="center">

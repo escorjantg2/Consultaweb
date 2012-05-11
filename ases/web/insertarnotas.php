@@ -22,36 +22,53 @@
         <script type="text/javascript" charset="utf-8" src="DataTables-1.9.1/TableTools-2.0.0/js/TableTools.js"></script> 
         <script type="text/javascript" charset="utf-8" src="DataTables-1.9.1/extras/ColVis/media/js/ColVis.js"></script> 
         <script type="text/javascript" charset="utf-8"> 
-var asInitVals = new Array(); 
-
-    $(document).ready(function() { 
-                    $('#example').dataTable({ 
+/* Formating function for row details */
+function fnFormatDetails ( oTable, nTr )
+{
+    var aData = oTable.fnGetData( nTr );
+    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    sOut += '<tr><td>Alumno:</td><td>'+aData[1]+' '+aData[2]+' '+aData[3]+'</td></tr>';
+    sOut += '<tr><td>Ciclo:</td><td>'+aData[4]+'</td></tr>';
+    sOut += '<tr><td>Asignatura:</td><td>'+aData[5]+'</td></tr>';
+    sOut += '<tr><td>Fecha:</td><td>'+aData[6]+'</td></tr>';
+    sOut += '<tr><td>Descripcion:</td><td>'+aData[7]+'</td></tr>';
+    sOut += '<tr><td>Nota:</td><td>'+aData[8]+'</td></tr>';
+    sOut += '<tr><td>Observaciones:</td><td>'+aData[9]+'</td></tr>';
+    sOut += '</table>';
+     
+    return sOut;
+}
+ 
+$(document).ready(function() {
+    /*
+     * Insert a 'details' column to the table
+     */
+    var nCloneTh = document.createElement( 'th' );
+    var nCloneTd = document.createElement( 'td' );
+    nCloneTd.innerHTML = '<img src="DataTables-1.9.1/examples/examples_support/details_open.png">';
+    nCloneTd.className = "center";
+     
+    $('#example thead tr').each( function () {
+        this.insertBefore( nCloneTh, this.childNodes[0] );
+    } );
+     
+    $('#example tbody tr').each( function () {
+        this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
+    } );
+     
+    /*
+     * Initialse DataTables, with no sorting on the 'details' column
+     */
+    var oTable = $('#example').dataTable( {
+    "sDom":'fl<"H"r>t<"F"ip>',
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0 ] }
+        ],
+        "iDisplayLength":20,
                        "bJQueryUI": true, 
                     "sPaginationType": "full_numbers", 
-                    //"sDom": 'T  lftip', /* C = show/hide- l = mostrar registros- f = ?? */
-                    "oTableTools": { 
-                    "sSwfPath": "/TableTools-2.0.0/media/swfcopy_cvs_xls_pdf.swf", 
-                    "aButtons": [ 
-                    "xls", 
-                    "pdf", 
-                    { 
-                    "sExtends": "print", 
-                    "sButtonText": "Imprimir", 
-                    "sInfo": "<br><center><h1>PRESIONAR ESCAPE AL TERMINAR</h1></center>", 
-                    "sMessage": "<center><h2><b>TITULO!</b></h2></center>", 
-                    "sTitle": "Listado x Obra Social", 
-                    } 
-                    ], 
-                    }, 
-                    "fnInitComplete": function () { 
-                        var 
-                            that = this, 
-                            nTrs = this.fnGetNodes(); 
-                        $('td', nTr).click( function () { 
-                            that.fnFilter( this.innerHTML ); 
-                        } ); 
-                    }, 
-                    "oLanguage": { 
+        
+        "oLanguage": { 
 "oPaginate": { 
 "sPrevious": "Anterior", 
 "sNext": "Siguiente", 
@@ -80,9 +97,29 @@ var asInitVals = new Array();
 
 "sSearch": "Buscar:", 
 
-} 
-                }); 
-
+} ,
+        "aaSorting": [[1, 'asc']]
+    });
+     
+    /* Add event listener for opening and closing details
+     * Note that the indicator for showing which row is open is not controlled by DataTables,
+     * rather it is done here
+     */
+    $('#example tbody td img').live('click', function () {
+        var nTr = $(this).parents('tr')[0];
+        if ( oTable.fnIsOpen(nTr) )
+        {
+            /* This row is already open - close it */
+            this.src = "DataTables-1.9.1/examples/examples_support/details_open.png";
+            oTable.fnClose( nTr );
+        }
+        else
+        {
+            /* Open this row */
+            this.src = "DataTables-1.9.1/examples/examples_support/details_close.png";
+            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+        }
+    } );
     $("tfoot input").keyup( function () { 
         /* Filter on the column (the index) of this element */ 
         oTable.fnFilter( this.value, $("tfoot input").index(this) ); 
@@ -113,7 +150,8 @@ var asInitVals = new Array();
             this.value = asInitVals[$("tfoot input").index(this)]; 
         } 
     } ); 
-            });  // Termina document.ready 
+} );
+
         </script> 
 <style> 
 .data_table { 

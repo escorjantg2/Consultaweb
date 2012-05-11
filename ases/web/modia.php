@@ -151,7 +151,7 @@ top:0;
     <body>
         <table width="100%" height="100%" border="0">
   <tr>
-    <td height="98" align="center"><img src="img/consultaa.jpg" width="510" height="152" align="middle" /></td>
+    <td height="98" align="center"><img src="img/moda.jpg" width="510" height="152" align="middle" /></td>
   </tr>
   <tr>
     <td valign="top" align="center">
